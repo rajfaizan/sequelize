@@ -1,0 +1,10 @@
+APP_NAME=sequelite
+HOST=localhost
+PORT=3000
+ALLOW_ORIGIN=*
+
+DM_CONNECTION=mysql
+DB_HOST=localhost
+DB_USERNAME=root
+DB_PASSWORD=
+DB_NAME=ecom
