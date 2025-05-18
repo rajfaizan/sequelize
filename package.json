@@ -1,0 +1,22 @@
+{
+  "name": "sequalize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --no-warnings app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "data-store": "^4.0.3",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "https": "^1.0.0",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7",
+    "sequelize-transforms": "^2.0.0"
+  }
+}
