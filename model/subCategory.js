@@ -3,15 +3,11 @@ import sequelizeTransforms from "sequelize-transforms";
 // import { baseUrl } from "../src/common/constants/config-constant.js";
 import { DataTypes } from "sequelize";
 import Category from "./category.js";
-
+import InnerSubCategory from "./innerSubCategory.js";
 
 let subCategory = sequelize.define('sub_categories',{
     category_id: {
         type: DataTypes.INTEGER,
-        references: {
-            model: Category,
-            key: "id"
-        },
         allowNull: false
     },
     name: {
@@ -25,16 +21,5 @@ let subCategory = sequelize.define('sub_categories',{
 })
 
 sequelizeTransforms(subCategory)
-
-// 🔁 Associations
-Category.hasMany(subCategory, {
-  foreignKey: "category_id",
-  as: "subcategories"
-});
-
-subCategory.belongsTo(Category, {
-  foreignKey: "category_id",
-  as: "category"
-});
 
 export default subCategory;

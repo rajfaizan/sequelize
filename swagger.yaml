@@ -1,0 +1,246 @@
+openapi: 3.0.0
+
+info:
+  title: API Title
+  description: OpenAPI specification 
+  version: 1.0.0
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: integer
+          example: 64cc83da7bce0189c6a3dd45
+        firstname:
+          type: string
+          example: Priya
+        lastname:
+          type: string
+          example: Varde
+        email:
+          type: string
+        countrycode:
+          type: string
+          example: +91
+        mobilenumber:
+          type: string
+          example: 9865257811
+        zipcode:
+          type: string
+          example: 785206
+        termsAndPolicy:
+          type: boolean
+          example: true
+
+  securitySchemes:
+    BearerAuth: 
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+  
+  responses:
+    success:
+      description: Ok
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: success
+
+    UnauthorizedError:
+      description: |
+        - Invalid credentials
+        - Expired access or refresh token
+        - Revoked access or refresh token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+
+    NoContent:
+      description: |
+        - Empty body content
+      content:
+        application/json:
+          schema:
+            type: object
+
+    UnprocessableEntity:
+      description: Validation errors
+      content:
+        application/json:
+          schema:
+            type: object
+
+    ConflictError :
+      description: Account already registered with given email
+      content:
+        application/json:
+          schema:
+            type: object
+
+    PreconditionFailedException:  
+      description: Account does not exist
+      content:
+        application/json:
+          schema:
+            type: object
+
+    GetLoginResponse:
+      description: Ok
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  _id:
+                    type: integer
+                    example: 643d4d03ae23825006d11937
+                  firstname:
+                    type: string
+                    example: Priya
+                  lastname:
+                    type: string
+                    example: Varde
+                  email:
+                    type: string
+                  countrycode:
+                    type: string
+                    example: +91
+                  mobilenumber:
+                    type: string
+                    example: 9865257811
+                  zipcode:
+                    type: string
+                    example: 785206
+                  termsAndPolicy:
+                    type: boolean
+                    example: true
+                  auth:
+                    type: object
+                    properties:
+                      tokenType:
+                        type: string
+                        example: Bearer
+                      accessToken:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo1LCJwaG9uZV9udW1iZXIiOiIrOTEgNzk5MDA1MzE3MCIsImZpcnN0X25hbWUiOiJ0ZXN0c2RzZHNkc2RzZHNkcyIsI
+                      refreshToken:
+                        type: string
+                        example: DGptc0miW9AXKCDl6H7RMMHlDcruUbPrwOowslSHiVOyYYJeFhRW1F2XKIrrfUCRIoG1lRMUfEQKSxX3TApl1Aw6641YkAGJhi6yQgr06PrZZuPFddYBvr
+                      expiresIn:
+                        type: integer
+                        example: 31536000
+paths:
+  /category:
+    post:
+      summary: Create Category
+      tags:
+        - Category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Electronics
+              required:
+                - name
+      responses:
+        "201":
+          description: Category created successfully
+
+    get:
+      summary: Get All Categories
+      tags:
+        - Category
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: Search term to filter categories by name
+          required: false
+      responses:
+        "200":
+          description: List of categories
+
+
+  /subcategory:
+    post:
+      summary: Create Subcategory
+      tags:
+        - Subcategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: Mobiles
+              required:
+                - category_id
+                - name
+      responses:
+        "201":
+          description: Subcategory created successfully
+    get:
+      summary: Get All Subcategories
+      tags:
+        - Subcategory
+      responses:
+        "200":
+          description: List of subcategories
+
+  /innersubcategory:
+    post:
+      summary: Create Inner Subcategory
+      tags:
+        - InnerSubcategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subcategory_id:
+                  type: integer
+                  example: 2
+                name:
+                  type: string
+                  example: Smartphones
+              required:
+                - subcategory_id
+                - name
+      responses:
+        "201":
+          description: Inner Subcategory created successfully
+    get:
+      summary: Get All Inner Subcategories
+      tags:
+        - InnerSubcategory
+      responses:
+        "200":
+          description: List of inner subcategories
